@@ -25,7 +25,8 @@ func (ts TCPServer) Start() {
 			continue
 		}
 		fmt.Printf("client %s connected.\n", conn.RemoteAddr().String())
-		go ts.handlerEcho(conn)
+		// go ts.handlerEcho(conn)
+		go ts.handlerEchoV2(conn)
 	}
 
 }
@@ -50,6 +51,23 @@ func (ts TCPServer) handlerEcho(conn *net.TCPConn) {
 		checkError(err)
 		fmt.Printf("write %d byte\n", wn)
 	}
+}
+
+func (ts TCPServer) handlerEchoV2(conn *net.TCPConn) {
+	defer func() {
+		conn.Close()
+		fmt.Printf("client %s disconnect\n", conn.RemoteAddr().String())
+	}()
+	for {
+		cn, err := io.Copy(conn, conn)
+		// end success
+		if err == nil {
+			fmt.Printf("copy %d byte\n", cn)
+			break
+		}
+		checkError(err)
+	}
+
 }
 
 type TCPClient struct {
