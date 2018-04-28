@@ -1,0 +1,8 @@
+{
+    "authKey": "tunnelkey",
+    "PortRange": "10001-20000",
+    "listenAddr": "127.0.0.1:10000",
+    "sshAddr": "127.0.0.1:22",
+    "sshUser": "tunnel",
+    "sshRsaPath": ""
+}

@@ -52,6 +52,7 @@ func (c *Client) keepConnect() {
 		case err := <-c.notify:
 			if err == io.EOF {
 				c.conn.Close()
+				fmt.Println("reconnecting...")
 				c.Connect()
 			}
 		case <-time.After(3 * time.Second):
